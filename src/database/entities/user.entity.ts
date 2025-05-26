@@ -6,7 +6,16 @@ import {
   UpdateDateColumn,
   OneToMany,
 } from 'typeorm';
-import { UserLogin } from './userlogins.entity';
+import { UserLogin } from './user-logins.entity';
+import { UserOtp } from './user-otps.entity';
+import { UserSocial } from './user-socials.entity';
+import { UserToken } from './user-token.entity';
+import { UserClaim } from './user-claims.entity';
+import { UserRefreshToken } from './user-refreshtokens.entity';
+import { UserRole } from './user-roles.entity';
+import { Post } from './posts.entity';
+import { PostVote } from './post-votes.entity';
+import { PostUserActivity } from './post-user-actives.entity';
 
 @Entity('Users')
 export class User {
@@ -110,5 +119,32 @@ export class User {
   accessFailedCount: number;
 
   @OneToMany(() => UserLogin, (login) => login.user, { cascade: true })
-logins: UserLogin[];
+  logins: UserLogin[];
+
+  @OneToMany(() => UserOtp, (otp) => otp.user, { cascade: true })
+  otps: UserOtp[];
+
+  @OneToMany(() => UserSocial, (social) => social.user, { cascade: true })
+  socials: UserSocial[];
+
+  @OneToMany(() => UserToken, (token) => token.user, { cascade: true })
+  tokens: UserToken[];
+
+  @OneToMany(() => UserClaim, (claim) => claim.user, { cascade: true })
+  claims: UserClaim[];
+
+  @OneToMany(() => UserRefreshToken, (refreshToken) => refreshToken.user, { cascade: true })
+  refreshTokens: UserRefreshToken[];
+
+  @OneToMany(() => UserRole, (role) => role.user, { cascade: true })
+  roles: UserRole[];
+
+  @OneToMany(() => Post, (post) => post.user, { cascade: true })
+  posts: Post[];
+
+  @OneToMany(() => PostVote, (PostVote) => PostVote.user, {cascade: true})
+  postVotes: PostVote[]
+
+  @OneToMany(() => PostUserActivity, (PostUserActivity) => PostUserActivity.user, {cascade: true})
+  postUserActivities: PostUserActivity[]
 }
